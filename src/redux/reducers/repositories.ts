@@ -1,8 +1,5 @@
-enum RepositoriesTypes {
-  SEARCH_STARTED = 'repositories/search_started',
-  SEARCH_SUCCESS = 'repositories/search_success',
-  SEARCH_ERROR = 'repositories/search_error',
-}
+import { RepositoriesActions } from '../actions';
+import { RepositoriesTypes } from '../types';
 
 interface RepositoriesState {
   isLoading: boolean;
@@ -10,29 +7,15 @@ interface RepositoriesState {
   data: string[];
 }
 
-interface RepositoriesSearchStartedAction {
-  type: RepositoriesTypes.SEARCH_STARTED;
-  payload: null;
-}
-
-interface RepositoriesSearchSuccessAction {
-  type: RepositoriesTypes.SEARCH_SUCCESS;
-  payload: string[];
-}
-
-interface RepositoriesSearchErrorAction {
-  type: RepositoriesTypes.SEARCH_ERROR;
-  payload: string;
-}
-
-type RepositoriesAction =
-  | RepositoriesSearchStartedAction
-  | RepositoriesSearchSuccessAction
-  | RepositoriesSearchErrorAction;
+const initialState = {
+  isLoading: false,
+  error: null,
+  data: [],
+};
 
 const repositoriesReducer = (
-  state: RepositoriesState,
-  action: RepositoriesAction
+  state: RepositoriesState = initialState,
+  action: RepositoriesActions
 ): RepositoriesState => {
   switch (action.type) {
     case RepositoriesTypes.SEARCH_STARTED:
